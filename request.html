@@ -40,6 +40,8 @@
   .step.on { display: block; animation: in .25s ease; }
   @keyframes in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
   h1 { font-size: 1.45rem; line-height: 1.25; font-weight: 800; margin-bottom: 18px; letter-spacing: -.01em; }
+  .protocols { font-size: .95rem; color: var(--muted); margin: -8px 0 18px; }
+  .protocols b { color: var(--orchid); }
   .kicker { font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--orchid); margin-bottom: 8px; }
   .lead { font-size: 1rem; font-weight: 600; margin: -6px 0 16px; }
   .label { font-size: .9rem; font-weight: 600; margin-bottom: 10px; }
@@ -104,6 +106,7 @@
   <section class="step on" data-step="zip">
     <p class="kicker">Diagnóstico de crecimiento gratuito</p>
     <h1>Llena tu agenda con pacientes de alto valor</h1>
+    <p class="protocols">Dos protocolos que no vas a encontrar en otra agencia: <b>Reactivación Asistida™</b>, para que un paciente te compre varias veces, y <b>Pauta Asistida™</b>, para escalar sin que la pauta salga de tu bolsillo, si tu clínica califica.</p>
     <p class="label">¿Dónde está tu clínica? Atendemos clínicas en todo Estados Unidos.</p>
     <div class="field" id="zipField">
       <label for="zip">Código postal (ZIP)</label>
@@ -152,6 +155,7 @@
   <section class="step" data-step="challenge">
     <h1>¿Qué te está frenando hoy?</h1>
     <div class="opts" data-group="challenge" data-mode="auto">
+      <button type="button" class="opt" data-value="pauta_bolsillo">La pauta sale de mi bolsillo y no puedo escalarla<span class="chev">›</span></button>
       <button type="button" class="opt" data-value="sin_sistema">No tengo un sistema para captar pacientes nuevos<span class="chev">›</span></button>
       <button type="button" class="opt" data-value="pauta_no_rinde">Invierto en anuncios y no veo resultados<span class="chev">›</span></button>
       <button type="button" class="opt" data-value="leads_sin_atender">Llegan mensajes y no se atienden a tiempo<span class="chev">›</span></button>
