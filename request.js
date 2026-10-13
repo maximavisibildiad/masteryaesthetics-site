@@ -23,7 +23,7 @@
     '25k_50k': 'entre $25,000 y $50,000', mas_50k: 'más de $50,000'
   };
   var CHALLENGE = {
-    pauta_bolsillo: 'Hoy la pauta sale de mi bolsillo y no puedo escalarla.',
+    sin_sistema: 'No tengo un sistema para captar pacientes nuevos de forma constante.',
     pauta_no_rinde: 'Invierto en anuncios y no veo los resultados que espero.',
     leads_sin_atender: 'Me llegan mensajes de pacientes y no se atienden a tiempo.',
     pacientes_no_vuelven: 'Los pacientes no vuelven después del primer tratamiento.',
