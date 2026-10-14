@@ -23,11 +23,27 @@
   }
 
   document.querySelectorAll('form.f').forEach(function (form) {
+    // Hidden trap field: people never see it, bots fill it. Submissions with it filled are ignored.
+    var trap = document.createElement('input');
+    trap.type = 'text'; trap.name = 'company_website'; trap.tabIndex = -1; trap.autocomplete = 'off';
+    trap.setAttribute('aria-hidden', 'true');
+    trap.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;opacity:0;';
+    form.appendChild(trap);
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (trap.value) return;
       var field = function (n) { var el = form.querySelector('[name="' + n + '"]'); return el ? el.value.trim() : ''; };
       var name = field('nombre');
       if (!name) return;
+      var tel = form.querySelector('[name="telefono"]');
+      if (field('telefono').replace(/\D/g, '').length < 10) {
+        var err = form.querySelector('.form-err');
+        if (!err) { err = document.createElement('p'); err.className = 'form-err'; err.style.color = '#C62828'; form.insertBefore(err, form.querySelector('button[type="submit"]')); }
+        err.textContent = 'Escribe un teléfono de 10 dígitos para poder contactarte.';
+        if (tel) tel.focus();
+        return;
+      }
       var parts = name.split(/\s+/);
       var nonMkt = form.querySelector('[name="consent_nonmarketing"]');
       var mkt = form.querySelector('[name="consent_marketing"]');
