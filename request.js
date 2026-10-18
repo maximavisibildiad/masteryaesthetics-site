@@ -260,7 +260,6 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (current !== 'contact') return next();
-    if ($('company_website').value) return;
     var first = $('first_name').value.trim(), last = $('last_name').value.trim();
     var phone = $('phone').value.trim();
     if (!first || phone.replace(/\D/g, '').length < 10) {
@@ -295,6 +294,7 @@
       consent_text_nonmarketing: consentText(nonMkt),
       consent_text_marketing: consentText(mkt),
       lead_form: 'request_multistep',
+      spam_trap: $('hp_x7k').value ? 'yes' : 'no',
       page_url: location.href,
       utm_source: utm('utm_source'),
       utm_medium: utm('utm_medium'),

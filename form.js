@@ -23,16 +23,16 @@
   }
 
   document.querySelectorAll('form.f').forEach(function (form) {
-    // Hidden trap field: people never see it, bots fill it. Submissions with it filled are ignored.
+    // Hidden trap field: people never see it, bots fill it. A non-semantic name keeps browser autofill out of it, and a
+    // filled trap only flags the lead (spam_trap = yes) instead of dropping it, so a real person is never lost.
     var trap = document.createElement('input');
-    trap.type = 'text'; trap.name = 'company_website'; trap.tabIndex = -1; trap.autocomplete = 'off';
+    trap.type = 'text'; trap.name = 'hp_x7k'; trap.tabIndex = -1; trap.autocomplete = 'off';
     trap.setAttribute('aria-hidden', 'true');
     trap.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;opacity:0;';
     form.appendChild(trap);
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (trap.value) return;
       var field = function (n) { var el = form.querySelector('[name="' + n + '"]'); return el ? el.value.trim() : ''; };
       var name = field('nombre');
       if (!name) return;
@@ -58,7 +58,8 @@
         clinic_name: '',
         clinic_type: field('tipo_clinica'),
         monthly_revenue: revenue,
-        qualifies_10k: revenue && revenue !== 'menos_10k' ? 'yes' : 'no',
+        qualifies_10k: revenue ? (revenue !== 'menos_10k' ? 'yes' : 'no') : '',
+        spam_trap: trap.value ? 'yes' : 'no',
         message: field('mensaje'),
         country: 'US',
         consent_nonmarketing: nonMkt && nonMkt.checked ? 'yes' : 'no',
