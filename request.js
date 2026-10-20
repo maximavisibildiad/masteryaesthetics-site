@@ -40,6 +40,13 @@
   function $(id) { return document.getElementById(id); }
   function utm(name) { return new URLSearchParams(location.search).get(name) || ''; }
 
+  // Accepts any US format ((555) 123-4567, 555.123.4567, +1 555 123 4567) and returns E.164 (+15551234567), or '' if invalid.
+  function toE164(raw) {
+    var d = (raw || '').replace(/\D/g, '');
+    if (d.length === 11 && d.charAt(0) === '1') d = d.slice(1);
+    return d.length === 10 ? '+1' + d : '';
+  }
+
   function cookie(name) {
     var m = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
     return m ? decodeURIComponent(m[1]) : '';
@@ -261,12 +268,13 @@
     e.preventDefault();
     if (current !== 'contact') return next();
     var first = $('first_name').value.trim(), last = $('last_name').value.trim();
-    var phone = $('phone').value.trim();
-    if (!first || phone.replace(/\D/g, '').length < 10) {
-      $('contactErr').textContent = 'Escribe tu nombre y un teléfono de 10 dígitos.';
+    var phone = toE164($('phone').value);
+    $('phoneErr').textContent = phone ? '' : 'Escribe un teléfono de EE.UU. de 10 dígitos, por ejemplo (555) 123-4567.';
+    $('contactErr').textContent = first ? '' : 'Escribe tu nombre.';
+    if (!first || !phone) {
+      (!first ? $('first_name') : $('phone')).focus();
       return;
     }
-    $('contactErr').textContent = '';
     var nonMkt = $('consent_nonmarketing'), mkt = $('consent_marketing');
     var payload = {
       name: (first + ' ' + last).trim(),
@@ -287,6 +295,7 @@
       state: $('state').value.trim().toUpperCase(),
       zip: $('zip').value,
       country: 'US',
+      language: document.documentElement.lang || 'es',
       message: $('message').value.trim(),
       consent_nonmarketing: nonMkt.checked ? 'yes' : 'no',
       consent_marketing: mkt.checked ? 'yes' : 'no',
