@@ -561,6 +561,18 @@ fbq('track', 'PageView');
 <noscript><img height="1" width="1" style="display:none" alt=""
 src="https://www.facebook.com/tr?id=1086369954259982&ev=PageView&noscript=1"></noscript>
 <!-- End Meta Pixel -->
+<style>
+  /* Versión emergente: el hero va centrado y el formulario de GHL se abre en una ventana (form-modal.js). */
+  .hero .grid.grid-centered{grid-template-columns:1fr;justify-items:center}
+  .grid-centered > div:first-child{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%}
+  .grid-centered h1{max-width:22ch;margin-inline:auto}
+  .grid-centered .lead{margin-inline:auto}
+  .grid-centered .beam{width:100%;margin-inline:auto}
+  .grid-centered .chips{justify-content:center}
+  .grid-centered .ul{display:inline-block;text-align:left}
+  .hero-cta{display:inline-block;width:auto;margin-top:30px}
+</style>
+<script src="lead-pixel.js"></script>
 </head>
 <body>
 <div class="rprog" aria-hidden="true"></div>
@@ -582,7 +594,7 @@ src="https://www.facebook.com/tr?id=1086369954259982&ev=PageView&noscript=1"></n
 <!-- HERO · impacto + captura. Único bloque con haz de luz. -->
 <section class="hero" id="top">
   <div class="wrap">
-    <div class="grid">
+    <div class="grid grid-centered">
       <div>
         <p class="eyebrow">Mastery Aesthetics</p>
         <h1>Las mejores clínicas llenan su agenda sin pagar la pauta de su bolsillo. Y no pierden un solo paciente.</h1>
@@ -593,66 +605,9 @@ src="https://www.facebook.com/tr?id=1086369954259982&ev=PageView&noscript=1"></n
           <span class="chip">Reactivación Asistida&#8482;</span>
           <span class="chip">Odontología · Armonización facial · Cirugía plástica</span>
         </div>
+        <a href="#diagnostico" class="btn hero-cta" data-open-form>Quiero mi diagnóstico gratuito</a>
       </div>
 
-      <div class="fcard" id="diagnostico"><span class="eglow"></span><span class="card-beam"></span>
-        <h3>Solicita tu diagnóstico de crecimiento</h3>
-        <p class="sub">Cuéntanos de tu clínica y te escribimos o te llamamos para coordinar la sesión.</p>
-
-        <!-- Formulario de referencia. Al conectar el GHL Form Builder, este bloque se
-             reemplaza por el embed real conservando EXACTAMENTE el texto de las dos
-             casillas y con Required = OFF en ambas y en el teléfono. -->
-        <form class="f" action="#" method="post">
-          <div class="fld">
-            <label for="h_nombre">Nombre completo</label>
-            <input type="text" id="h_nombre" name="nombre" required>
-          </div>
-          <div class="g2">
-            <div class="fld">
-              <label for="h_tel">Teléfono</label>
-              <input type="tel" id="h_tel" name="telefono" placeholder="(555) 123-4567" autocomplete="tel" inputmode="tel">
-            </div>
-            <div class="fld">
-              <label for="h_mail">Correo</label>
-              <input type="email" id="h_mail" name="correo">
-            </div>
-            <div class="fld">
-              <label for="h_estado">Estado (opcional)</label>
-              <input type="text" id="h_estado" name="estado" maxlength="2" placeholder="NY" autocomplete="address-level1">
-            </div>
-          </div>
-          <div class="fld">
-            <label for="h_tipo">Tipo de clínica</label>
-            <select id="h_tipo" name="tipo_clinica"><option value="">Selecciona una</option>
-            <option value="odontologia">Odontología</option>
-            <option value="armonizacion_facial">Armonización facial</option>
-            <option value="cirugia_plastica">Cirugía plástica</option>
-            <option value="otra">Otra</option></select>
-          </div>
-          <div class="fld">
-            <label for="h_facturacion">Facturación mensual</label>
-            <select id="h_facturacion" name="facturacion_mensual"><option value="">Selecciona un rango</option>
-            <option value="menos_10k">Menos de $10,000</option>
-            <option value="10k_25k">$10,000&#8211;$25,000</option>
-            <option value="25k_50k">$25,000&#8211;$50,000</option>
-            <option value="mas_50k">Más de $50,000</option></select>
-          </div>
-
-        <div class="consent">
-          <input type="checkbox" id="h_no_promo" name="consent_nonmarketing">
-          <p>Acepto recibir mensajes de texto <b>no promocionales</b> de MAIA International Corp (Mastery Aesthetics) sobre confirmaciones de consulta, actualizaciones de implementación, agendamiento y respuestas a mi solicitud sobre el crecimiento de mi clínica. La frecuencia de mensajes puede variar. Pueden aplicar tarifas de mensaje y datos. Tengo 18 años o más. Responde HELP para ayuda, responde STOP para cancelar.</p>
-        </div>
-
-        <div class="consent">
-          <input type="checkbox" id="h_promo" name="consent_marketing">
-          <p>Acepto recibir mensajes de texto <b>promocionales</b> de MAIA International Corp (Mastery Aesthetics) sobre ofertas especiales, descuentos y promociones de crecimiento para clínicas, al número telefónico que proporcioné. La frecuencia de mensajes puede variar. Pueden aplicar tarifas de mensaje y datos. Tengo 18 años o más. Responde HELP para ayuda, responde STOP para cancelar.</p>
-        </div>
-
-        <p class="finenote">Al enviar este formulario aceptas nuestra <a href="privacy-policy.html">Política de Privacidad</a> y nuestros <a href="terms-of-service.html">Términos de Servicio</a>. Marcar las casillas de arriba es opcional y no es requisito para enviar este formulario.</p>
-
-          <button type="submit" class="btn">Quiero mi diagnóstico gratuito</button>
-        </form>
-      </div>
     </div>
   </div>
 </section>
@@ -861,6 +816,6 @@ src="https://www.facebook.com/tr?id=1086369954259982&ev=PageView&noscript=1"></n
 
 </script>
 
-<script src="form.js"></script>
+<script src="form-modal.js" data-origen="inicio"></script>
 </body>
 </html>

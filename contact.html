@@ -20,6 +20,18 @@ fbq('track', 'PageView');
 <noscript><img height="1" width="1" style="display:none" alt=""
 src="https://www.facebook.com/tr?id=1086369954259982&ev=PageView&noscript=1"></noscript>
 <!-- End Meta Pixel -->
+<style>
+  /* Versión emergente: el hero va centrado y el formulario de GHL se abre en una ventana (form-modal.js). */
+  .hero .grid.grid-centered{grid-template-columns:1fr;justify-items:center}
+  .grid-centered > div:first-child{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%}
+  .grid-centered h1{max-width:22ch;margin-inline:auto}
+  .grid-centered .lead{margin-inline:auto}
+  .grid-centered .beam{width:100%;margin-inline:auto}
+  .grid-centered .chips{justify-content:center}
+  .grid-centered .ul{display:inline-block;text-align:left}
+  .hero-cta{display:inline-block;width:auto;margin-top:30px}
+</style>
+<script src="lead-pixel.js"></script>
 </head>
 <body>
 
@@ -40,7 +52,7 @@ src="https://www.facebook.com/tr?id=1086369954259982&ev=PageView&noscript=1"></n
 <section class="s s-light" style="padding-top:clamp(44px,5.5vw,72px)">
   <div class="wrap">
     <div class="hero" style="padding:0;background:transparent">
-      <div class="grid">
+      <div class="grid grid-centered">
         <div>
           <p class="eyebrow">Contacto</p>
           <h1 style="font-size:clamp(30px,4.2vw,46px)">Hablemos de tu clínica.</h1>
@@ -51,74 +63,9 @@ src="https://www.facebook.com/tr?id=1086369954259982&ev=PageView&noscript=1"></n
             <li><b>Horario de atención:</b> Lunes a viernes, 9:00 a.&nbsp;m. a 6:00 p.&nbsp;m. (hora del Este)</li>
             <li><b>Dirección:</b> 2807 Jackson Ave, 5FL, Long Island City, NY 11101, Estados Unidos</li>
           </ul>
+          <a href="#diagnostico" class="btn hero-cta" data-open-form>Quiero mi diagnóstico gratuito</a>
         </div>
 
-        <div class="fcard">
-          <h3>Diagnóstico de crecimiento</h3>
-          <p class="sub">Sin costo y sin compromiso.</p>
-
-          <!-- Formulario de referencia. Al conectar el GHL Form Builder, este bloque se
-               reemplaza por el embed real conservando EXACTAMENTE el texto de las dos
-               casillas y con Required = OFF en ambas y en el teléfono. -->
-          <form class="f" action="#" method="post">
-            <div class="fld">
-              <label for="c_nombre">Nombre completo</label>
-              <input type="text" id="c_nombre" name="nombre" required>
-            </div>
-            <div class="g2">
-              <div class="fld">
-                <label for="c_tel">Teléfono</label>
-                <input type="tel" id="c_tel" name="telefono" placeholder="(555) 123-4567" autocomplete="tel" inputmode="tel">
-              </div>
-              <div class="fld">
-                <label for="c_mail">Correo</label>
-                <input type="email" id="c_mail" name="correo">
-              </div>
-              <div class="fld">
-                <label for="c_estado">Estado (opcional)</label>
-                <input type="text" id="c_estado" name="estado" maxlength="2" placeholder="NY" autocomplete="address-level1">
-              </div>
-            </div>
-            <div class="g2">
-              <div class="fld">
-                <label for="c_tipo">Tipo de clínica</label>
-                <select id="c_tipo" name="tipo_clinica"><option value="">Selecciona una</option>
-            <option value="odontologia">Odontología</option>
-            <option value="armonizacion_facial">Armonización facial</option>
-            <option value="cirugia_plastica">Cirugía plástica</option>
-            <option value="otra">Otra</option></select>
-              </div>
-              <div class="fld">
-                <label for="c_fact">Facturación mensual</label>
-                <select id="c_fact" name="facturacion">
-                  <option value="">Selecciona una</option>
-                  <option value="menos_10k">Menos de $10,000</option>
-                  <option value="10k_25k">$10,000 – $25,000</option>
-                  <option value="25k_50k">$25,000 – $50,000</option>
-                  <option value="mas_50k">Más de $50,000</option>
-                </select>
-              </div>
-            </div>
-            <div class="fld">
-              <label for="c_msg">Cuéntanos de tu clínica</label>
-              <textarea id="c_msg" name="mensaje" rows="4"></textarea>
-            </div>
-
-        <div class="consent">
-          <input type="checkbox" id="c_no_promo" name="consent_nonmarketing">
-          <p>Acepto recibir mensajes de texto <b>no promocionales</b> de MAIA International Corp (Mastery Aesthetics) sobre confirmaciones de consulta, actualizaciones de implementación, agendamiento y respuestas a mi solicitud sobre el crecimiento de mi clínica. La frecuencia de mensajes puede variar. Pueden aplicar tarifas de mensaje y datos. Tengo 18 años o más. Responde HELP para ayuda, responde STOP para cancelar.</p>
-        </div>
-
-        <div class="consent">
-          <input type="checkbox" id="c_promo" name="consent_marketing">
-          <p>Acepto recibir mensajes de texto <b>promocionales</b> de MAIA International Corp (Mastery Aesthetics) sobre ofertas especiales, descuentos y promociones de crecimiento para clínicas, al número telefónico que proporcioné. La frecuencia de mensajes puede variar. Pueden aplicar tarifas de mensaje y datos. Tengo 18 años o más. Responde HELP para ayuda, responde STOP para cancelar.</p>
-        </div>
-
-        <p class="finenote">Al enviar este formulario aceptas nuestra <a href="privacy-policy.html">Política de Privacidad</a> y nuestros <a href="terms-of-service.html">Términos de Servicio</a>. Marcar las casillas de arriba es opcional y no es requisito para enviar este formulario.</p>
-
-            <button type="submit" class="btn">Enviar solicitud</button>
-          </form>
-        </div>
       </div>
     </div>
   </div>
@@ -244,6 +191,6 @@ src="https://www.facebook.com/tr?id=1086369954259982&ev=PageView&noscript=1"></n
 })();
 </script>
 
-<script src="form.js"></script>
+<script src="form-modal.js" data-origen="contacto"></script>
 </body>
 </html>

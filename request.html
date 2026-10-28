@@ -86,6 +86,9 @@
   .consent-block p { font-size: .8rem; color: var(--ink); line-height: 1.45; }
   .legal { font-size: .76rem; color: var(--muted); margin: 6px 0 16px; }
   .err { color: var(--red); font-size: .85rem; margin: -4px 0 10px; min-height: 1em; }
+  .opt-group { padding: 10px 14px 6px; font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--smoke); border-bottom: 1px solid var(--line); }
+  #ghlForm iframe { display: block; width: 100%; min-height: 600px; border: 0; overflow: hidden; }
+  /* En el paso del formulario la página se ensancha: el formulario de GHL pasa a dos columnas solo con 1025px o más. */
   .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   .thanks h1 { margin-bottom: 10px; }
   .thanks p { color: var(--muted); }
@@ -115,56 +118,34 @@ src="https://www.facebook.com/tr?id=1086369954259982&ev=PageView&noscript=1"></n
 <main>
 <form id="flow" novalidate>
 
-  <!-- 1. ZIP (cualquier ZIP de EE.UU.) -->
-  <section class="step on" data-step="zip">
+  <!-- 1. Tratamiento de mayor valor (la especialidad, el ZIP, la facturación y los datos de contacto los pide el formulario de GHL del paso 4) -->
+  <section class="step on" data-step="detail">
     <p class="kicker">Diagnóstico de crecimiento gratuito</p>
     <h1>Llena tu agenda con pacientes de alto valor</h1>
     <p class="protocols">Dos protocolos que no vas a encontrar en otra agencia: <b>Reactivación Asistida™</b>, para que un paciente te compre varias veces, y <b>Pauta Asistida™</b>, para escalar sin que la pauta salga de tu bolsillo, si tu clínica califica.</p>
-    <p class="label">¿Dónde está tu clínica? Atendemos clínicas en todo Estados Unidos.</p>
-    <div class="field" id="zipField">
-      <label for="zip">Código postal (ZIP)</label>
-      <input id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}">
-      <span class="ok">✓</span>
+    <p class="label">¿Cuál es el tratamiento de mayor valor de tu clínica?</p>
+    <div class="opts" data-group="top_procedure" data-mode="auto">
+      <p class="opt-group">Odontología</p>
+      <button type="button" class="opt" data-value="implantes">Implantes / All-on-4<span class="chev">›</span></button>
+      <button type="button" class="opt" data-value="diseno_sonrisa">Diseño de sonrisa / carillas<span class="chev">›</span></button>
+      <button type="button" class="opt" data-value="ortodoncia">Ortodoncia invisible<span class="chev">›</span></button>
+      <p class="opt-group">Armonización facial</p>
+      <button type="button" class="opt" data-value="rellenos">Rellenos con ácido hialurónico<span class="chev">›</span></button>
+      <button type="button" class="opt" data-value="toxina">Toxina botulínica<span class="chev">›</span></button>
+      <button type="button" class="opt" data-value="perfilado">Perfilado / rinomodelación<span class="chev">›</span></button>
+      <p class="opt-group">Cirugía plástica</p>
+      <button type="button" class="opt" data-value="lipo_bbl">Lipoescultura / BBL<span class="chev">›</span></button>
+      <button type="button" class="opt" data-value="mamoplastia">Mamoplastia<span class="chev">›</span></button>
+      <button type="button" class="opt" data-value="rinoplastia">Rinoplastia<span class="chev">›</span></button>
+      <button type="button" class="opt" data-value="abdominoplastia">Abdominoplastia<span class="chev">›</span></button>
+      <p class="opt-group">Otro</p>
+      <button type="button" class="opt" data-value="otro">Otro tratamiento<span class="chev">›</span></button>
     </div>
-    <p class="city" id="zipCity"></p>
+    <div class="words"><span>✦</span><input id="own_words_2" placeholder="O escríbelo con tus palabras..."></div>
     <div class="nav"><button type="button" class="btn" data-next>Siguiente</button></div>
   </section>
 
-  <!-- 2. Tipo de clínica -->
-  <section class="step" data-step="service">
-    <h1>¿Qué tipo de clínica tienes?</h1>
-    <div class="opts" data-group="clinic_type" data-mode="radio">
-      <button type="button" class="opt" data-value="odontologia"><span class="radio"></span>Odontología</button>
-      <button type="button" class="opt" data-value="armonizacion_facial"><span class="radio"></span>Armonización facial</button>
-      <button type="button" class="opt" data-value="cirugia_plastica"><span class="radio"></span>Cirugía plástica</button>
-      <button type="button" class="opt" data-value="otra"><span class="radio"></span>Otra</button>
-      <div class="other" id="otherBox"><input id="other_text" placeholder="¿Cuál?"></div>
-    </div>
-    <div class="words"><span>✦</span><input id="own_words" placeholder="Cuéntanos con tus palabras..."></div>
-    <div class="nav"><button type="button" class="btn back" data-back>Atrás</button><button type="button" class="btn" data-next>Siguiente</button></div>
-  </section>
-
-  <!-- 3. Procedimiento de mayor valor (depende del tipo de clínica) -->
-  <section class="step" data-step="detail">
-    <h1 id="detailQ"></h1>
-    <div class="opts" data-group="top_procedure" data-mode="auto" id="detailOpts"></div>
-    <div class="words"><span>✦</span><input id="own_words_2" placeholder="O continúa con tus palabras..."></div>
-    <div class="nav"><button type="button" class="btn back" data-back>Atrás</button></div>
-  </section>
-
-  <!-- 4. Facturación mensual -->
-  <section class="step" data-step="revenue">
-    <h1>¿Cuánto factura tu clínica al mes?</h1>
-    <div class="opts" data-group="monthly_revenue" data-mode="auto">
-      <button type="button" class="opt" data-value="menos_10k">Menos de $10,000<span class="chev">›</span></button>
-      <button type="button" class="opt" data-value="10k_25k">$10,000 – $25,000<span class="chev">›</span></button>
-      <button type="button" class="opt" data-value="25k_50k">$25,000 – $50,000<span class="chev">›</span></button>
-      <button type="button" class="opt" data-value="mas_50k">Más de $50,000<span class="chev">›</span></button>
-    </div>
-    <div class="nav"><button type="button" class="btn back" data-back>Atrás</button></div>
-  </section>
-
-  <!-- 5. Principal reto -->
+  <!-- 2. Principal reto -->
   <section class="step" data-step="challenge">
     <h1>¿Qué te está frenando hoy?</h1>
     <div class="opts" data-group="challenge" data-mode="auto">
@@ -178,67 +159,32 @@ src="https://www.facebook.com/tr?id=1086369954259982&ev=PageView&noscript=1"></n
     <div class="nav"><button type="button" class="btn back" data-back>Atrás</button></div>
   </section>
 
-  <!-- 6. Armando -->
-  <section class="step center" data-step="building">
-    <h1>Preparando tu diagnóstico</h1>
-    <div class="progress"><span id="buildBar"></span></div>
-    <p style="font-weight:600">Revisando disponibilidad de cupos...</p>
-  </section>
-
-  <!-- 7. Mensaje -->
-  <section class="step" data-step="message">
-    <h1>Te dejamos listo este mensaje para nuestro equipo.</h1>
-    <p class="lead">Edítalo como quieras.</p>
-    <textarea class="msg" id="message" name="message" maxlength="2000"></textarea>
-    <p class="count"><span id="msgCount">0</span>/2000</p>
-    <div class="nav"><button type="button" class="btn back" data-back>Atrás</button><button type="button" class="btn" data-next>Siguiente</button></div>
-  </section>
-
-  <!-- 8. Clínica -->
-  <section class="step" data-step="clinic">
-    <h1>¿Cómo se llama tu clínica?</h1>
-    <div class="field"><label for="clinic_name">Nombre de la clínica</label><input id="clinic_name" name="clinic_name" autocomplete="organization"></div>
+  <!-- 3. Ubicación y web (no están en el formulario de GHL) -->
+  <section class="step" data-step="location">
+    <h1>¿Dónde está tu clínica?</h1>
     <div class="row">
       <div class="field"><label for="city">Ciudad</label><input id="city" name="city" autocomplete="address-level2"></div>
       <div class="field" style="flex:0 0 32%"><label for="state">Estado</label><input id="state" name="state" maxlength="2" placeholder="NY" autocomplete="address-level1"></div>
     </div>
     <div class="field"><label for="website">Sitio web o Instagram (opcional)</label><input id="website" name="website" autocomplete="url"></div>
-    <p class="err" id="clinicErr"></p>
+    <p class="err" id="locationErr"></p>
     <div class="nav"><button type="button" class="btn back" data-back>Atrás</button><button type="button" class="btn" data-next>Siguiente</button></div>
   </section>
 
-  <!-- 9. Contacto + consentimiento -->
-  <section class="step" data-step="contact">
-    <h1>Buenas noticias: trabajamos en tu estado.</h1>
+  <!-- 4. Formulario de GHL "Form dco": nombre, teléfono, correo, ZIP, facturación, idioma, clínica, especialidad, observaciones y casillas -->
+  <section class="step" data-step="form">
+    <h1>Último paso: tus datos de contacto.</h1>
     <p class="project" id="projectLine"></p>
-    <div class="row">
-      <div class="field"><label for="first_name">Nombre</label><input id="first_name" name="first_name" autocomplete="given-name"></div>
-      <div class="field"><label for="last_name">Apellido</label><input id="last_name" name="last_name" autocomplete="family-name"></div>
-    </div>
-    <div class="field"><label for="phone">Teléfono</label><input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="(555) 123-4567"><p class="err" id="phoneErr"></p></div>
-    <div class="field"><label for="email">Correo (opcional)</label><input type="email" id="email" name="email" autocomplete="email"></div>
-
     <div class="hp-field" aria-hidden="true">
       <label for="hp_x7k">No completar</label>
       <input type="text" id="hp_x7k" name="hp_x7k" tabindex="-1" autocomplete="off">
     </div>
-
-    <div class="consent-block">
-      <input type="checkbox" id="consent_nonmarketing" name="consent_nonmarketing">
-      <p>Acepto recibir mensajes de texto <b>no promocionales</b> de MAIA International Corp (Mastery Aesthetics) sobre confirmaciones de consulta, actualizaciones de implementación, agendamiento y respuestas a mi solicitud sobre el crecimiento de mi clínica. La frecuencia de mensajes puede variar. Pueden aplicar tarifas de mensaje y datos. Tengo 18 años o más. Responde HELP para ayuda, responde STOP para cancelar.</p>
-    </div>
-
-    <div class="consent-block">
-      <input type="checkbox" id="consent_marketing" name="consent_marketing">
-      <p>Acepto recibir mensajes de texto <b>promocionales</b> de MAIA International Corp (Mastery Aesthetics) sobre ofertas especiales, descuentos y promociones de crecimiento para clínicas, al número telefónico que proporcioné. La frecuencia de mensajes puede variar. Pueden aplicar tarifas de mensaje y datos. Tengo 18 años o más. Responde HELP para ayuda, responde STOP para cancelar.</p>
-    </div>
-
-    <p class="err" id="contactErr"></p>
-    <button type="submit" class="btn" style="width:100%" id="submitBtn">Quiero mi diagnóstico gratuito</button>
-    <p class="legal">Al enviar este formulario aceptas nuestra <a href="privacy-policy.html">Política de Privacidad</a> y nuestros <a href="terms-of-service.html">Términos de Servicio</a>. Marcar las casillas de arriba es opcional y no es requisito para enviar este formulario.</p>
+    <p class="lead" style="margin-top:4px">Completa tus datos en la ventana que se abrió.</p>
+    <div class="nav" style="margin-bottom:12px"><button type="button" class="btn" data-open-form>Abrir el formulario</button></div>
+    <div class="nav"><button type="button" class="btn back" data-back>Atrás</button></div>
   </section>
 
-  <!-- 10. Gracias -->
+  <!-- 5. Gracias -->
   <section class="step thanks center" data-step="thanks">
     <h1>¡Listo!</h1>
     <p>Gracias. Te escribimos o te llamamos en breve para coordinar tu diagnóstico.</p>
@@ -254,6 +200,7 @@ src="https://www.facebook.com/tr?id=1086369954259982&ev=PageView&noscript=1"></n
   </div>
 </footer>
 
+<script src="form-modal.js" data-origen="request"></script>
 <script src="request.js"></script>
 </body>
 </html>
