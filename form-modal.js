@@ -2,12 +2,16 @@
 // Uso: <script src="form-modal.js" data-origen="inicio"></script>
 //  - Abre con cualquier enlace a "#diagnostico", con .cta-mini y con [data-open-form].
 //  - Si la página carga con #diagnostico en la URL, se abre sola.
+//  - Con data-autoabrir="1" la ventana se abre sola al cargar la página (solo landings de anuncios).
+//  - data-subtitulo="..." reemplaza el texto bajo el título.
 //  - Otras páginas pueden llamar MasteryForm.open() / MasteryForm.close() y escuchar MasteryForm.onClose.
 (function () {
   var FORM_ID = 'IeYVdcvEOoF5aGSecvaQ';
   var EMBED_SCRIPT = 'https://link.msgsndr.com/js/form_embed.js';
   var me = document.currentScript;
   var ORIGEN = (me && me.dataset.origen) || 'inicio';
+  var AUTOABRIR = !!(me && me.dataset.autoabrir === '1');
+  var SUBTITULO = (me && me.dataset.subtitulo) || 'Cuéntanos de tu clínica y te escribimos o te llamamos para coordinar la sesión.';
 
   var css = [
     '@property --mf-a{syntax:"<angle>";initial-value:0deg;inherits:false}',
@@ -52,7 +56,7 @@
       '<div class="mf-inner">' +
         '<button type="button" class="mf-close" aria-label="Cerrar">&times;</button>' +
         '<div class="mf-head"><h3 id="mf-title">Solicita tu diagnóstico de crecimiento</h3>' +
-        '<p>Cuéntanos de tu clínica y te escribimos o te llamamos para coordinar la sesión.</p></div>' +
+        '<p></p></div>' +
         '<div class="mf-body"></div>' +
       '</div>' +
     '</div>';
@@ -105,6 +109,7 @@
   };
 
   ready(function () {
+    overlay.querySelector('.mf-head p').textContent = SUBTITULO;
     document.body.appendChild(overlay);
     overlay.querySelector('.mf-close').addEventListener('click', api.close);
     overlay.addEventListener('click', function (e) { if (e.target === overlay) api.close(); });
@@ -118,6 +123,6 @@
       api.open();
     });
 
-    if (location.hash === '#diagnostico') api.open();
+    if (location.hash === '#diagnostico' || AUTOABRIR) api.open();
   });
 })();
